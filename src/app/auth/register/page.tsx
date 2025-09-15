@@ -377,8 +377,7 @@ function RegisterPageContent() {
 
     try {
       // Determine the correct site URL for email redirects
-      const siteUrl =
-        process.env.NEXT_PUBLIC_SITE_URL || window.location.origin;
+      const siteUrl = "https://umili.work";
 
       const { data, error } = await supabase.auth.signUp({
         email: basicData.email,
