@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import {
@@ -13,7 +13,7 @@ import {
 import { Mail, CheckCircle, ArrowLeft, RefreshCw, Clock } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
-export default function EmailConfirmationPage() {
+function EmailConfirmationPageContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { toast } = useToast();
@@ -198,5 +198,13 @@ export default function EmailConfirmationPage() {
         </CardContent>
       </Card>
     </div>
+  );
+}
+
+export default function EmailConfirmationPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <EmailConfirmationPageContent />
+    </Suspense>
   );
 }
