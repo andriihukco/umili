@@ -8,14 +8,14 @@ import { supabase } from './supabase';
 export async function checkEmailAvailability(email: string): Promise<boolean> {
   try {
     // Check in auth.users table
-    const { data: authUser, error: authError } = await supabase.auth.admin.getUserByEmail(email);
+    const { data: authUser } = await supabase.auth.admin.getUserByEmail(email);
     
     if (authUser?.user) {
       return false; // Email exists in auth.users
     }
 
     // Check in public.users table
-    const { data: publicUser, error: publicError } = await supabase
+    const { data: publicUser } = await supabase
       .from('users')
       .select('email')
       .eq('email', email)
@@ -61,12 +61,12 @@ export function getSiteUrl(): string {
  * @param error - The Supabase error
  * @returns string - User-friendly error message
  */
-export function getAuthErrorMessage(error: any): string {
-  if (!error?.message) {
+export function getAuthErrorMessage(error: unknown): string {
+  if (!error || typeof error !== 'object' || !('message' in error)) {
     return 'Сталася неочікувана помилка. Спробуйте ще раз.';
   }
 
-  const message = error.message.toLowerCase();
+  const message = (error as { message: string }).message.toLowerCase();
 
   if (message.includes('already registered') || message.includes('user already registered')) {
     return 'Користувач з таким email вже зареєстрований. Спробуйте увійти в систему.';
@@ -89,5 +89,5 @@ export function getAuthErrorMessage(error: any): string {
   }
 
   // Return the original error message if no specific case matches
-  return error.message;
+  return (error as { message: string }).message;
 }
