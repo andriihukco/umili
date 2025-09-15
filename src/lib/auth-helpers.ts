@@ -7,14 +7,7 @@ import { supabase } from './supabase';
  */
 export async function checkEmailAvailability(email: string): Promise<boolean> {
   try {
-    // Check in auth.users table
-    const { data: authUser } = await supabase.auth.admin.getUserByEmail(email);
-    
-    if (authUser?.user) {
-      return false; // Email exists in auth.users
-    }
-
-    // Check in public.users table
+    // Check in public.users table first (this is what we can control)
     const { data: publicUser } = await supabase
       .from('users')
       .select('email')
@@ -25,10 +18,12 @@ export async function checkEmailAvailability(email: string): Promise<boolean> {
       return false; // Email exists in public.users
     }
 
-    return true; // Email is available
+    // For auth.users, we'll rely on Supabase's built-in validation
+    // when the user tries to sign up
+    return true; // Email appears to be available
   } catch (error) {
     console.error('Error checking email availability:', error);
-    return false; // Assume not available on error for safety
+    return true; // Allow signup attempt, let Supabase handle the validation
   }
 }
 
