@@ -16,6 +16,11 @@ import {
 } from "@/components/ui/select";
 import { supabase } from "@/lib/supabase";
 import {
+  checkEmailAvailability,
+  getSiteUrl,
+  getAuthErrorMessage,
+} from "@/lib/auth-helpers";
+import {
   AppleSkillsSelector,
   SkillCategory,
 } from "@/components/ui/apple-skills-selector";
@@ -376,8 +381,19 @@ function RegisterPageContent() {
     }
 
     try {
-      // Determine the correct site URL for email redirects
-      const siteUrl = "https://umili.work";
+      // First, check if email already exists
+      const isEmailAvailable = await checkEmailAvailability(basicData.email);
+
+      if (!isEmailAvailable) {
+        setError(
+          "Користувач з таким email вже існує. Спробуйте інший email або увійдіть в систему."
+        );
+        setIsLoading(false);
+        return;
+      }
+
+      // Get the correct site URL for email redirects
+      const siteUrl = getSiteUrl();
 
       const { data, error } = await supabase.auth.signUp({
         email: basicData.email,
@@ -433,7 +449,7 @@ function RegisterPageContent() {
       });
 
       if (error) {
-        setError(error.message);
+        setError(getAuthErrorMessage(error));
         setIsLoading(false);
         return;
       }
