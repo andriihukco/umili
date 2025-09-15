@@ -376,11 +376,15 @@ function RegisterPageContent() {
     }
 
     try {
+      // Determine the correct site URL for email redirects
+      const siteUrl =
+        process.env.NEXT_PUBLIC_SITE_URL || window.location.origin;
+
       const { data, error } = await supabase.auth.signUp({
         email: basicData.email,
         password: basicData.password,
         options: {
-          emailRedirectTo: `${window.location.origin}/auth/callback`,
+          emailRedirectTo: `${siteUrl}/auth/callback`,
           data: {
             name: basicData.name,
             role: userType,
