@@ -151,11 +151,6 @@ export function Sidebar({
             href: "/catalog/freelancers",
             icon: Users,
           },
-          {
-            title: "Active Projects",
-            href: "/active-projects",
-            icon: FileText,
-          },
           { title: "Chat", href: "/chat", icon: MessageSquare },
           ...infoItems,
         ];
@@ -165,14 +160,9 @@ export function Sidebar({
           { title: "Dashboard", href: "/dashboard", icon: Home },
           { title: "Notifications", href: "/notifications", icon: Bell },
           {
-            title: "My Jobs",
-            href: "/freelancer-jobs",
+            title: "Каталог завдань",
+            href: "/catalog/tasks",
             icon: Briefcase,
-          },
-          {
-            title: "Active Projects",
-            href: "/active-projects",
-            icon: FileText,
           },
           { title: "Chat", href: "/chat", icon: MessageSquare },
           ...infoItems,

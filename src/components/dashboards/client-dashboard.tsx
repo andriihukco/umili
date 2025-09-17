@@ -293,7 +293,7 @@ export function ClientDashboard() {
                   </div>
                   <div className="flex gap-2">
                     <Button asChild variant="outline" size="sm">
-                      <Link href="/my-tasks">Всі проєкти</Link>
+                      <Link href="/client-jobs">Всі проєкти</Link>
                     </Button>
                     <Button asChild size="sm">
                       <Link href="/tasks/create">Створити проєкт</Link>

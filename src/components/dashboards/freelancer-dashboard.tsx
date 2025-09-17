@@ -294,7 +294,7 @@ export function FreelancerDashboard() {
                       </CardDescription>
                     </div>
                     <Button asChild variant="outline" size="sm">
-                      <Link href="/my-applications">Всі заявки</Link>
+                      <Link href="/applications">Всі заявки</Link>
                     </Button>
                   </div>
                 </CardHeader>
@@ -404,7 +404,7 @@ export function FreelancerDashboard() {
                   variant="outline"
                   className="h-20 flex-col gap-2"
                 >
-                  <Link href="/my-applications">
+                  <Link href="/applications">
                     <Clock className="h-6 w-6" />
                     <span>Мої заявки</span>
                   </Link>
