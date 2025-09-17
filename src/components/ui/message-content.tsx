@@ -30,9 +30,8 @@ export function MessageContent({ content, className }: MessageContentProps) {
     }
 
     // Add blurred contact
-    const contactType = getContactTypeLabel(match.type);
     parts.push(
-      <BlurredContact key={`contact-${index}`} contactType={contactType}>
+      <BlurredContact key={`contact-${index}`} contactType={match.type}>
         {match.value}
       </BlurredContact>
     );

@@ -6,7 +6,16 @@ import { getContactWarningMessage } from "@/lib/contact-detection";
 
 interface BlurredContactProps {
   children: React.ReactNode;
-  contactType: string;
+  contactType:
+    | "email"
+    | "phone"
+    | "telegram"
+    | "instagram"
+    | "whatsapp"
+    | "skype"
+    | "discord"
+    | "linkedin"
+    | "website";
   className?: string;
 }
 
